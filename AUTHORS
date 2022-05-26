@@ -1,37 +1,48 @@
-YOUR PROJECT NAME for MEGA65 aka GITHUB REPO SHORT NAME
-=======================================================
+Apple-II for MEGA65 aka Apple-II_MEGA65
+=======================================
 
-done in YEAR by YOUR NAME
+done in 2022 by Oliver Graf
 
-YOUR WEBSITE
-YOUR GITHUB SITE
+https://www.youtube.com/c/OliverGraf
+https://github.com/lydon42
 
-REPO SHORT NAME is licensed under the terms of GNU/GPL v3, for more information please read the file LICENSE
-Parts of REPO SHORT NAME are licensed under other Free-software licenses as described in the source code
+Apple-II_MEGA65 is licensed under the terms of GNU/GPL v3, for more information please read the file LICENSE
+Parts of Apple-II_MEGA65 are licensed under other Free-software licenses as described in the source code
 
-GITHUB REPO SHORT NAME:
+GITHUB Apple-II_MEGA65:
 -----------------------
 
-  GITHUB REPO SHORT NAME is a port of MISTER'S REPO SHORT NAME
+  GITHUB Apple-II_MEGA65 is a port of MISTER'S Apple-II_MiSTer
       done by the MiSTer Development Team
-      Original GitHub Repository: https://github.com/MiSTer-devel/MISTER-REPO-LINK
+      Original GitHub Repository: https://github.com/MiSTer-devel/Apple-II_MiSTer
       Significant contributors:
-      * NAME THE MAIN
-      * CONTRIBUTORS
-      * ON MiSTer's SIDE
+      * Alexey Melnikov (sorgelig)
+      * steven-a-wilson
+      * Newsdee
+      * Alan Steremberg (alanswx)
+      * birdybro
 
-  MISTER'S REPO SHORT NAME is a port of MiST's MiST NAME/OTHER SOURCE IN CASE MiSTer ported it from MIST/OTHER SOURCE
+  MISTER'S Apple-II_MiSTer is a port of MiST's MiST Apple IIb
       done by the MiST Development Team
-      Original GitHub Repository: https://github.com/mist-devel/MIST-REPO-LINK OR OTHER SOURCE
+      Original GitHub Repository: https://github.com/mist-devel/mist-binaries/tree/master/cores/appleii%2B
       Significant contributors:
-      * NAME THE MAIN
-      * CONTRIBUTORS
-      * ON MiST's SIDE (OR OTHER SOURCE)
+      * gyurco
+      * Till Harbaum (harbaum)
+      * Renaud Helias (renaudhelias)
+      * Newsdee
+      * squidrpi
+      * Winfried Soltys (wsoltys)
+      * Alexey Melnikov (sorgelig)
+      * and many others...
+  
+  MIST's Apple IIb is a port of Stephen A. Edwards Apple2fpga
+      Contributors:
+      * Michel Stempin
+  
+  Stephen A. Edwards used [Peter Wendrich's Commodore 64 emulator](http://www.syntiac.com/fpga64.html)
+  for the 6502 core.
 
-  LIST SOME MORE SIGNIFICANT / MAIN AUTHERS OF SUBMODULES
-  HAVE A LOOK AT THIS EXAMPLE HOW TO: https://github.com/sy2002/gbc4mega65/blob/master/AUTHORS
-
-Other than that and my own work, REPO SHORT NAME uses:
+Other than that and my own work, Apple-II_MEGA65 uses:
 ------------------------------------------------------
 
 DO NOT FORGET TO CREDIT EVERYTHING YOU USE FROM OTHER PEOPLE HERE
