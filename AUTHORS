@@ -1,9 +1,15 @@
 Apple-II for MEGA65 aka Apple-II_MEGA65
 =======================================
 
-done in 2022 by Oliver Graf ([YouTube Channel](https://www.youtube.com/c/OliverGraf), [GitHub Page](https://github.com/lydon42))
+done in 2022 by Oliver Graf
+ * YouTube Channel: https://www.youtube.com/c/OliverGraf
+ * GitHub Page: https://github.com/lydon42
 
-with the help of [sy2002](https://github.com/sy2002) and [MJoergen](https://github.com/MJoergen). Many Thanks!
+with the help of
+ * sy2002 (https://github.com/sy2002)
+ * MJoergen (https://github.com/MJoergen)
+ 
+Many Thanks!
 
 Apple-II_MEGA65 is licensed under the terms of GNU/GPL v3, for more information please read the file LICENSE
 Parts of Apple-II_MEGA65 are licensed under other Free-software licenses as described in the source code
