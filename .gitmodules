@@ -1,3 +1,6 @@
 [submodule "QNICE"]
 	path = M2M/QNICE
 	url = https://github.com/sy2002/QNICE-FPGA
+[submodule "CORE/Apple-II_MiSTerM65"]
+	path = CORE/Apple-II_MiSTerM65
+	url = git@github.com:lydon42/Apple-II_MiSTerM65.git
