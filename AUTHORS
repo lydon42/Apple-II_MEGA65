@@ -1,10 +1,9 @@
 Apple-II for MEGA65 aka Apple-II_MEGA65
 =======================================
 
-done in 2022 by Oliver Graf
+done in 2022 by Oliver Graf ([YouTube Channel](https://www.youtube.com/c/OliverGraf), [GitHub Page](https://github.com/lydon42))
 
-https://www.youtube.com/c/OliverGraf
-https://github.com/lydon42
+with the help of [sy2002](https://github.com/sy2002) and [MJoergen](https://github.com/MJoergen). Many Thanks!
 
 Apple-II_MEGA65 is licensed under the terms of GNU/GPL v3, for more information please read the file LICENSE
 Parts of Apple-II_MEGA65 are licensed under other Free-software licenses as described in the source code
@@ -39,7 +38,7 @@ GITHUB Apple-II_MEGA65:
       Contributors:
       * Michel Stempin
   
-  Stephen A. Edwards used [Peter Wendrich's Commodore 64 emulator](http://www.syntiac.com/fpga64.html)
+  Stephen A. Edwards used Peter Wendrich's Commodore 64 emulator (http://www.syntiac.com/fpga64.html)
   for the 6502 core.
 
 Other than that and my own work, Apple-II_MEGA65 uses:
