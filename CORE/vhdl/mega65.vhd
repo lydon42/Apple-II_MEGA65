@@ -24,7 +24,7 @@ port (
    RESET_M2M_N             : in std_logic;         -- Debounced system reset in system clock domain
 
    -- Share clock and reset with the framework
-   main_clk_o              : out std_logic;        -- CORE's 54 MHz clock
+   main_clk_o              : out std_logic;        -- CORE's 14.31767 MHz clock (should be 14.318181)
    main_rst_o              : out std_logic;        -- CORE's reset, synchronized
 
    --------------------------------------------------------------------------------------------------------
@@ -112,7 +112,8 @@ architecture synthesis of MEGA65_Core is
 -- Clocks and active high reset signals for each clock domain
 ---------------------------------------------------------------------------------------------
 
-signal main_clk               : std_logic;               -- Core main clock
+signal main50_clk             : std_logic;               -- Core main clock
+signal main14_clk             : std_logic;               -- Core main clock
 signal main_rst               : std_logic;
 
 ---------------------------------------------------------------------------------------------
@@ -146,11 +147,12 @@ begin
       port map (
          sys_clk_i         => CLK,             -- expects 100 MHz
          sys_rstn_i        => RESET_M2M_N,     -- Asynchronous, asserted low
-         main_clk_o        => main_clk,        -- CORE's 54 MHz clock
+         main50_clk_o      => main50_clk,      -- CORE's 50 MHz clock
+         main14_clk_o      => main14_clk,      -- CORE's 14 MHz clock
          main_rst_o        => main_rst         -- CORE's reset, synchronized
       ); -- clk_gen
 
-   main_clk_o <= main_clk;
+   main_clk_o <= main14_clk;
    main_rst_o <= main_rst;
 
    ---------------------------------------------------------------------------------------------
@@ -163,7 +165,8 @@ begin
          G_VDNUM              => C_VDNUM
       )
       port map (
-         clk_main_i           => main_clk,
+         clk50_main_i         => main50_clk,
+         clk14_main_i         => main14_clk,
          reset_soft_i         => main_reset_core_i,
          reset_hard_i         => main_reset_m2m_i,
          pause_i              => main_pause_core_i,
@@ -288,7 +291,7 @@ begin
       port map
       (
          clk_qnice_i       => qnice_clk_i,
-         clk_core_i        => main_clk,
+         clk_core_i        => main14_clk,
          reset_core_i      => main_reset_core_i,
 
          -- Core clock domain

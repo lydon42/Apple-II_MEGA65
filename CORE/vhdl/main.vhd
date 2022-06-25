@@ -18,7 +18,8 @@ entity main is
       G_VDNUM                 : natural                     -- amount of virtual drives     
    );
    port (
-      clk_main_i              : in  std_logic;
+      clk50_main_i            : in  std_logic;
+      clk14_main_i            : in  std_logic;
       reset_soft_i            : in  std_logic;
       reset_hard_i            : in  std_logic;
       pause_i                 : in  std_logic;
@@ -72,8 +73,8 @@ begin
    -- can be synthesized and run stand-alone without an actual MiSTer core being there, yet
    i_apple2_top : entity work.apple2_top
       port map (
-         CLK_14M        => '0',
-         CLK_50M        => '0',
+         CLK_14M        => clk14_main_i,
+         CLK_50M        => clk50_main_i,
 
          reset_cold     => '0',
          reset_warm     => '0',
@@ -88,13 +89,13 @@ begin
          ram_aux        => open,
       
          -- video output
-         hsync          => open,
-         vsync          => open,
-         hblank         => open,
-         vblank         => open,
-         r              => open,
-         g              => open,
-         b              => open,
+         hsync          => video_hs_o,
+         vsync          => video_vs_o,
+         hblank         => video_hblank_o,
+         vblank         => video_vblank_o,
+         r              => video_red_o,
+         g              => video_green_o,
+         b              => video_blue_o,
          SCREEN_MODE    => ( others => '0' ), -- 00: Color, 01: B&W, 10:Green, 11: Amber
          TEXT_COLOR     => '0', -- 1 = color processing for
                                          -- text lines in mixed modes
@@ -144,7 +145,7 @@ begin
    -- You need to adjust keyboard.vhd to your needs
    i_keyboard : entity work.core_keyboard
       port map (
-         clk_main_i           => clk_main_i,
+         clk_main_i           => clk14_main_i,
 
          -- Interface to the MEGA65 keyboard
          key_num_i            => kb_key_num_i,

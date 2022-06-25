@@ -22,7 +22,8 @@ entity clk is
       sys_clk_i       : in  std_logic;   -- expects 100 MHz
       sys_rstn_i      : in  std_logic;   -- Asynchronous, asserted low
 
-      main_clk_o      : out std_logic;   -- main's @TODO 54 MHz main clock
+      main50_clk_o    : out std_logic;   -- main's 50 MHz main clock
+      main14_clk_o    : out std_logic;   -- main's 14 MHz main clock
       main_rst_o      : out std_logic    -- main's reset, synchronized
    );
 end entity clk;
@@ -35,7 +36,8 @@ signal clkfb2             : std_logic;
 signal clkfb2_mmcm        : std_logic;
 signal clkfb3             : std_logic;
 signal clkfb3_mmcm        : std_logic;
-signal main_clk_mmcm      : std_logic;
+signal main50_clk_mmcm    : std_logic;
+signal main14_clk_mmcm    : std_logic;
 
 signal main_locked        : std_logic;
 
@@ -54,18 +56,23 @@ begin
          CLKIN1_PERIOD        => 10.0,       -- INPUT @ 100 MHz
          REF_JITTER1          => 0.010,
          DIVCLK_DIVIDE        => 1,
-         CLKFBOUT_MULT_F      => 6.750,      -- 675 MHz
+         CLKFBOUT_MULT_F      => 8.000,
          CLKFBOUT_PHASE       => 0.000,
          CLKFBOUT_USE_FINE_PS => FALSE,
-         CLKOUT0_DIVIDE_F     => 12.500,     -- 54 MHz
+         CLKOUT0_DIVIDE_F     => 55.875,     -- 14.318181 MHz
          CLKOUT0_PHASE        => 0.000,
          CLKOUT0_DUTY_CYCLE   => 0.500,
-         CLKOUT0_USE_FINE_PS  => FALSE
+         CLKOUT0_USE_FINE_PS  => FALSE,
+         CLKOUT1_DIVIDE       => 16,         -- 50 MHz
+         CLKOUT1_PHASE        => 0.000,
+         CLKOUT1_DUTY_CYCLE   => 0.500,
+         CLKOUT1_USE_FINE_PS  => FALSE
       )
       port map (
          -- Output clocks
          CLKFBOUT            => clkfb3_mmcm,
-         CLKOUT0             => main_clk_mmcm,
+         CLKOUT0             => main14_clk_mmcm,
+         CLKOUT1             => main50_clk_mmcm,
          -- Input clock control
          CLKFBIN             => clkfb3,
          CLKIN1              => sys_clk_i,
@@ -103,10 +110,16 @@ begin
          O => clkfb3
       );
 
-   main_clk_bufg : BUFG
+   main50_clk_bufg : BUFG
       port map (
-         I => main_clk_mmcm,
-         O => main_clk_o
+         I => main50_clk_mmcm,
+         O => main50_clk_o
+      );
+
+   main14_clk_bufg : BUFG
+      port map (
+         I => main14_clk_mmcm,
+         O => main14_clk_o
       );
 
    -------------------------------------
@@ -120,7 +133,7 @@ begin
       )
       port map (
          src_arst  => not (main_locked and sys_rstn_i),   -- 1-bit input: Source reset signal.
-         dest_clk  => main_clk_o,       -- 1-bit input: Destination clock.
+         dest_clk  => main14_clk_o,     -- 1-bit input: Destination clock.
          dest_arst => main_rst_o        -- 1-bit output: src_rst synchronized to the destination clock domain.
                                        -- This output is registered.
       );

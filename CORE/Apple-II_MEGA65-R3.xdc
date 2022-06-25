@@ -21,7 +21,8 @@ create_generated_clock -name hr_clk_x2_del [get_pins M2M/i_framework/i_clk_m2m/i
 create_generated_clock -name audio_clk     [get_pins M2M/i_framework/i_clk_m2m/i_clk_qnice/CLKOUT4]
 create_generated_clock -name tmds_clk      [get_pins M2M/i_framework/i_clk_m2m/i_clk_hdmi/CLKOUT0]
 create_generated_clock -name hdmi_clk      [get_pins M2M/i_framework/i_clk_m2m/i_clk_hdmi/CLKOUT1]
-create_generated_clock -name main_clk      [get_pins M2M/CORE/clk_gen/i_clk_main/CLKOUT0]
+create_generated_clock -name main14_clk    [get_pins M2M/CORE/clk_gen/i_clk_main/CLKOUT0]
+create_generated_clock -name main50_clk    [get_pins M2M/CORE/clk_gen/i_clk_main/CLKOUT1]
 
 ## Clock divider sdcard_clk that creates the 25 MHz used by sd_spi.vhd
 create_generated_clock -name sdcard_clk -source [get_pins M2M/i_framework/i_clk_m2m/i_clk_qnice/CLKOUT0] -divide_by 2 [get_pins M2M/i_framework/QNICE_SOC/sd_card/Slow_Clock_25MHz_reg/Q]
@@ -55,14 +56,14 @@ resize_pblock pblock_m65driver -add {SLICE_X0Y225:SLICE_X7Y243}
 # Timing between ascal.vhd and HyperRAM is asynchronous.
 set_false_path -from [get_clocks hr_clk_x1]    -to [get_clocks hdmi_clk]
 set_false_path   -to [get_clocks hr_clk_x1]  -from [get_clocks hdmi_clk]
-set_false_path -from [get_clocks hr_clk_x1]    -to [get_clocks main_clk]
-set_false_path   -to [get_clocks hr_clk_x1]  -from [get_clocks main_clk]
-set_false_path -from [get_clocks hdmi_clk]     -to [get_clocks main_clk]
-set_false_path   -to [get_clocks hdmi_clk]   -from [get_clocks main_clk]
+set_false_path -from [get_clocks hr_clk_x1]    -to [get_clocks main14_clk]
+set_false_path   -to [get_clocks hr_clk_x1]  -from [get_clocks main14_clk]
+set_false_path -from [get_clocks hdmi_clk]     -to [get_clocks main14_clk]
+set_false_path   -to [get_clocks hdmi_clk]   -from [get_clocks main14_clk]
 set_false_path -from [get_clocks qnice_clk]    -to [get_clocks hdmi_clk]
 
-set_false_path -from [get_clocks main_clk]     -to [get_clocks audio_clk]
-set_false_path -from [get_clocks main_clk]     -to [get_clocks pcm_clk]
+set_false_path -from [get_clocks main14_clk]   -to [get_clocks audio_clk]
+set_false_path -from [get_clocks main14_clk]   -to [get_clocks pcm_clk]
 
 ## Interface to MAX10
 set_property -dict {PACKAGE_PIN M13 IOSTANDARD LVCMOS33} [get_ports max10_tx]
