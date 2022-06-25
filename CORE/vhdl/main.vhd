@@ -70,35 +70,79 @@ begin
    -- @TODO: Add the actual MiSTer core here
    -- The demo core's purpose is to show a test image and to make sure, that the MiSTer2MEGA65 framework
    -- can be synthesized and run stand-alone without an actual MiSTer core being there, yet
-   i_democore : entity work.democore
+   i_apple2_top : entity work.apple2_top
       port map (
-         clk_main_i           => clk_main_i,
-         reset_i              => reset_soft_i or reset_hard_i,
-         pause_i              => pause_i,
-         keyboard_n_i         => keyboard_n,
-         joy_up_n_i           => joy_1_up_n_i,
-         joy_down_n_i         => joy_1_down_n_i,
-         joy_left_n_i         => joy_1_left_n_i,
-         joy_right_n_i        => joy_1_right_n_i,
-         joy_fire_n_i         => joy_1_fire_n_i,
-         vga_ce_o             => video_ce_o,
-         vga_red_o            => video_red_o,
-         vga_green_o          => video_green_o,
-         vga_blue_o           => video_blue_o,
-         vga_vs_o             => video_vs_o,
-         vga_hs_o             => video_hs_o,
-         vga_hblank_o         => video_hblank_o,
-         vga_vblank_o         => video_vblank_o,
-         audio_left_o         => audio_left_o,
-         audio_right_o        => audio_right_o
-      ); -- i_democore
+         CLK_14M        => '0',
+         CLK_50M        => '0',
+
+         reset_cold     => '0',
+         reset_warm     => '0',
+         cpu_type       => '0',
+         CPU_WAIT       => '0',
+      
+         -- main RAM
+         ram_we         => open,
+         ram_di         => open,
+         ram_do         => ( others => '0' ),
+         ram_addr       => open,
+         ram_aux        => open,
+      
+         -- video output
+         hsync          => open,
+         vsync          => open,
+         hblank         => open,
+         vblank         => open,
+         r              => open,
+         g              => open,
+         b              => open,
+         SCREEN_MODE    => ( others => '0' ), -- 00: Color, 01: B&W, 10:Green, 11: Amber
+         TEXT_COLOR     => '0', -- 1 = color processing for
+                                         -- text lines in mixed modes
+      
+         PS2_Key        => ( others => '0' ),
+         joy            => ( others => '0' ),
+         joy_an         => ( others => '0' ),
+      
+         -- mocking board
+         mb_enabled 		=> '0',
+      
+         -- disk control
+         TRACK 			=> open,
+         DISK_RAM_ADDR  => ( others => '0' ),
+         DISK_RAM_DI 	=> ( others => '0' ),
+         DISK_RAM_DO    => open,
+         DISK_RAM_WE 	=> '0',
+         DISK_ACT       => open,
+      
+         -- HDD control
+         HDD_SECTOR     => open,
+         HDD_READ       => open,
+         HDD_WRITE      => open,
+         HDD_MOUNTED    => '0',
+         HDD_PROTECT    => '0',
+         HDD_RAM_ADDR   => ( others => '0' ),
+         HDD_RAM_DI     => ( others => '0' ),
+         HDD_RAM_DO     => open,
+         HDD_RAM_WE     => '0',
+      
+         AUDIO_L        => open,
+         AUDIO_R        => open,
+         TAPE_IN        => '0',
+      
+         UART_TXD       => open,
+         UART_RXD       => '0',
+         UART_RTS       => open,
+         UART_CTS       => '0',
+         UART_DTR       => open,
+         UART_DSR       => '0'
+      ); -- i_apple2_top
 
    -- @TODO: Keyboard mapping and keyboard behavior
    -- Each core is treating the keyboard in a different way: Some need low-active "matrices", some
    -- might need small high-active keyboard memories, etc. This is why the MiSTer2MEGA65 framework
    -- lets you define literally everything and only provides a minimal abstraction layer to the keyboard.
    -- You need to adjust keyboard.vhd to your needs
-   i_keyboard : entity work.keyboard
+   i_keyboard : entity work.core_keyboard
       port map (
          clk_main_i           => clk_main_i,
 

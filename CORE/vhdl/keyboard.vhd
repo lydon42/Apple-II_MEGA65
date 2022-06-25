@@ -24,7 +24,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity keyboard is
+entity core_keyboard is
    port (
       clk_main_i           : in std_logic;               -- core clock
          
@@ -36,9 +36,9 @@ entity keyboard is
       -- "example_n_o" is a low active register and used by the demo core
       example_n_o          : out std_logic_vector(79 downto 0)
    );
-end keyboard;
+end core_keyboard;
 
-architecture beh of keyboard is
+architecture beh of core_keyboard is
 
 -- MEGA65 key codes that kb_key_num_i is using while
 -- kb_key_pressed_n_i is signalling (low active) which key is pressed
