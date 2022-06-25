@@ -62,6 +62,7 @@ set_false_path   -to [get_clocks hdmi_clk]   -from [get_clocks main_clk]
 set_false_path -from [get_clocks qnice_clk]    -to [get_clocks hdmi_clk]
 
 set_false_path -from [get_clocks main_clk]     -to [get_clocks audio_clk]
+set_false_path -from [get_clocks main_clk]     -to [get_clocks pcm_clk]
 
 ## Interface to MAX10
 set_property -dict {PACKAGE_PIN M13 IOSTANDARD LVCMOS33} [get_ports max10_tx]
