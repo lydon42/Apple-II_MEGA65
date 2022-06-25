@@ -13,7 +13,10 @@ use ieee.numeric_std.all;
 entity m2m is
 port (
    CLK            : in  std_logic;                  -- 100 MHz clock
-   RESET_N        : in  std_logic;                  -- CPU reset button, active low
+   -- MAX10 FPGA (delivers reset)
+   max10_tx          : in std_logic;
+   max10_rx          : out std_logic;
+   max10_clkandsync  : inout std_logic;
 
    -- Serial communication (rxd, txd only; rts/cts are not available)
    -- 115.200 baud, 8-N-1
@@ -141,6 +144,7 @@ signal main_joy2_fire_n       : std_logic;
 ---------------------------------------------------------------------------------------------
 
 -- Video and audio mode control
+signal qnice_dvi              : std_logic;
 signal qnice_video_mode       : std_logic;
 signal qnice_audio_mute       : std_logic;
 signal qnice_audio_filter     : std_logic;
@@ -170,7 +174,9 @@ begin
    port map (
       -- Connect to I/O ports
       CLK                     => CLK,
-      RESET_N                 => RESET_N,
+      max10_tx                => max10_tx,
+      max10_rx                => max10_rx,
+      max10_clkandsync        => max10_clkandsync,
       UART_RXD                => UART_RXD,
       UART_TXD                => UART_TXD,
       VGA_RED                 => VGA_RED,
@@ -216,7 +222,7 @@ begin
       hr_clk_p                => hr_clk_p,
       hr_cs0                  => hr_cs0,
 
-      -- Connect to CORE and QNICE
+      -- Connect to CORE
       qnice_clk_o             => qnice_clk,
       reset_m2m_n_o           => reset_m2m_n,
       main_clk_i              => main_clk,
@@ -248,6 +254,9 @@ begin
       main_joy2_left_n_o      => main_joy2_left_n,
       main_joy2_right_n_o     => main_joy2_right_n,
       main_joy2_fire_n_o      => main_joy2_fire_n,
+      
+      -- Connect to QNICE
+      qnice_dvi_i             => qnice_dvi,
       qnice_video_mode_i      => qnice_video_mode,
       qnice_audio_mute_i      => qnice_audio_mute,
       qnice_audio_filter_i    => qnice_audio_filter,
@@ -288,6 +297,7 @@ begin
          qnice_clk_i             => qnice_clk,
 
          -- Video and audio mode control
+         qnice_dvi_o             => qnice_dvi,
          qnice_video_mode_o      => qnice_video_mode,    -- 720p always; 0 = 50Hz, 1 = 60 Hz
          qnice_audio_mute_o      => qnice_audio_mute,
          qnice_audio_filter_o    => qnice_audio_filter,
