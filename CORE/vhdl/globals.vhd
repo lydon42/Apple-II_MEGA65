@@ -41,7 +41,7 @@ constant QNICE_FIRMWARE           : string  := QNICE_FIRMWARE_M2M;
 ----------------------------------------------------------------------------------------------------------
 
 -- CORE clock speed
-constant CORE_CLK_SPEED       : natural := 14_317_67;   -- Apple II expects 14.318181 MHz
+constant CORE_CLK_SPEED       : natural := 14_317_670;   -- Apple II expects 14.318181 MHz
 
 ----------------------------------------------------------------------------------------------------------
 -- Video Mode
