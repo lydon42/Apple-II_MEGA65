@@ -949,7 +949,7 @@ begin
          video_osm_cfg_dxdy_i     => main_osm_cfg_dxdy,
          video_osm_vram_addr_o    => main_osm_vram_addr,
          video_osm_vram_data_i    => main_osm_vram_data,
-         scandoubler_i            => '0'
+         scandoubler_i            => '1' -- TODO: make configureable via menu
       ); -- i_analog_pipeline
 
    i_crop : entity work.crop

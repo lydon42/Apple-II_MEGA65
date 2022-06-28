@@ -9,6 +9,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use ieee.numeric_std_unsigned.all;
 
 library work;
 use work.video_modes_pkg.all;
@@ -65,6 +66,15 @@ architecture synthesis of main is
 
 -- @TODO: Remove these demo core signals
 signal keyboard_n          : std_logic_vector(79 downto 0);
+signal ram_addr            : std_logic_vector(17 downto 0);
+signal ram_dout            : std_logic_vector(15 downto 0);
+signal ram_din             : std_logic_vector(7 downto 0);
+signal ram_we              : std_logic;
+signal ram_aux             : std_logic;
+
+type ram_t is array(natural range <>) of std_logic_vector(7 downto 0);
+signal ram0 : ram_t(0 to 196607);
+signal ram1 : ram_t(0 to 65535);
 
 begin
 
@@ -82,11 +92,11 @@ begin
          CPU_WAIT       => '0',
       
          -- main RAM
-         ram_we         => open,
-         ram_di         => open,
-         ram_do         => ( others => '0' ),
-         ram_addr       => open,
-         ram_aux        => open,
+         ram_we         => ram_we,
+         ram_di         => ram_din,
+         ram_do         => ram_dout,
+         ram_addr       => ram_addr,
+         ram_aux        => ram_aux,
       
          -- video output
          hsync          => video_hs_o,
@@ -138,6 +148,8 @@ begin
          UART_DSR       => '0'
       ); -- i_apple2_top
 
+      video_ce_o <= '1';
+
    -- @TODO: Keyboard mapping and keyboard behavior
    -- Each core is treating the keyboard in a different way: Some need low-active "matrices", some
    -- might need small high-active keyboard memories, etc. This is why the MiSTer2MEGA65 framework
@@ -159,5 +171,29 @@ begin
          example_n_o          => keyboard_n
       ); -- i_keyboard
 
+   p_ram0: process(clk14_main_i)
+   begin
+      if rising_edge(clk14_main_i) then
+         if (ram_we and not ram_aux) then
+            ram0(to_integer(ram_addr))<= ram_din;
+            ram_dout(7 downto 0) <= ram_din;
+         else
+            ram_dout(7 downto 0) <= ram0(to_integer(ram_addr));
+         end if;
+      end if;
+   end process p_ram0;
+
+   p_ram1: process(clk14_main_i)
+   begin
+      if rising_edge(clk14_main_i) then
+         if (ram_we and ram_aux) then
+            ram1(to_integer(ram_addr(15 downto 0))) <= ram_din;
+            ram_dout(15 downto 8) <= ram_din;
+         else
+            ram_dout(15 downto 8) <= ram1(to_integer(ram_addr(15 downto 0)));
+         end if;
+      end if;
+   end process p_ram1;
+   
 end architecture synthesis;
 
